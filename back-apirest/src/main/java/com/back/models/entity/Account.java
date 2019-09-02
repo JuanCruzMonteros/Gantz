@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -28,8 +29,13 @@ public class Account {
 	private String observaciones;
 	@Temporal(TemporalType.DATE)
 	@Column(name="create_at")
-	private Date CreateAt;
+	private Date createAt;
 
+	@PrePersist
+	public void prePersist() {
+		//  Aca deberia hacer llamado al servicio de inst //
+		createAt = new Date();
+	}
 	public Long getId() {
 		return id;
 	}
@@ -87,11 +93,11 @@ public class Account {
 	}
 
 	public Date getCreateAt() {
-		return CreateAt;
+		return createAt;
 	}
 
 	public void setCreateAt(Date createAt) {
-		CreateAt = createAt;
+		createAt = createAt;
 	}
 
 }

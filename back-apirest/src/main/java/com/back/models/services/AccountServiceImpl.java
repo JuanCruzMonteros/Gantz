@@ -18,5 +18,22 @@ public class AccountServiceImpl implements IAccountService{
 	public List<Account> findAll() {
 		return (List<Account>) accountDao.findAll();
 	}
+
+	@Override
+	public Account findById(Long id) {
+		return accountDao.findById(id).orElse(null);
+	}
+
+	@Override
+	public Account save(Account account) {
+		// TODO Auto-generated method stub
+		return accountDao.save(account);
+	}
+
+	@Override
+	public void delete(Long id) {
+		accountDao.deleteById(id);
+		
+	}
 	
 }
