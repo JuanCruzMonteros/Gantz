@@ -7,7 +7,10 @@
         Agregar Cuenta
     </button>
     </div>
-    <table class="table table-bordered table-striped">
+    <div *ngIf="accounts?.length== 0" class="alert alert-info">
+        No hay registros de usuarios!
+    </div>
+    <table class="table table-bordered table-striped" *ngIf="accounts?.length >0 ">
     <thead>
         <tr>
             <th>id</th>
@@ -35,12 +38,10 @@
         <td>{{ acc.observaciones }}</td>
         <td>{{ acc.create_at }}</td>
         <td>
-            <!--  [routerLink]="['/accounts/form', acc.id]" -->
-            <button type="button" name="editar" class="btn btn-primary btn-sm">editar</button>
+            <button type="button" name="editar" class="btn btn-primary btn-sm" [routerLink]="['/account/edit', acc.id]">editar</button>
         </td>
         <td>
-            <!-- (click)='delete(account)'-->
-            <button type="button" name="eliminar"   class="btn btn-danger btn-sm">eliminar</button>
+            <button type="button" name="eliminar"   class="btn btn-danger btn-sm" (click)='delete(acc)'>eliminar</button>
         </td>
         </tr>
     </tbody>

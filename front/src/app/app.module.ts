@@ -16,7 +16,8 @@ const rutas: Routes = [
   { path: '',      component: AppComponent },
   //{ path: '**',      component: NotfoundComponent },
   { path: 'account', component: AccountsComponent },
-  { path: 'account/add', component: AddComponent }
+  { path: 'account/add', component: AddComponent },
+  { path: 'account/edit/:id', component: EditComponent }
 
 ];
 
