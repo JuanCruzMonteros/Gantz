@@ -16,12 +16,14 @@ import javax.persistence.GeneratedValue;
 @Table(name="accounts")
 public class Account {
 
+	@Column(nullable=false,unique=true)
 	private String usuario;
+	@Column(nullable=false)
 	private String password;
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long id;
+	private Long id; 
 	
 	private String bio;
 	private String foto_bio;
@@ -30,6 +32,7 @@ public class Account {
 	private int post;
 
 	private String observaciones;
+	
 	@Temporal(TemporalType.DATE)
 	@Column(name="create_at")
 	private Date createAt;

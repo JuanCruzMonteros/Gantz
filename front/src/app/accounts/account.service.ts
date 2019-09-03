@@ -25,6 +25,10 @@ export class AccountService {
     );
   }
 
+  getAccount(id): Observable<Account> {
+    return this.http.get<Account>(this.urlEndPoint + '/' + id)
+  }
+
   createAccount(account: Account): Observable<Account> {
     return this.http.post<Account>(this.urlEndPoint, account, {headers: this.httpHeaders })
   }
@@ -33,4 +37,11 @@ export class AccountService {
     return this.http.post<Userpass>(this.urlEndPoint + '/verify', userPass, {headers: this.httpHeaders })
   }
 
+  update(account: Account):Observable<Account> {
+    return this.http.put<Account>(this.urlEndPoint + '/' + account.id, account, {headers: this.httpHeaders }) 
+  }
+
+  delete(id: number):Observable<Account> {
+    return this.http.delete<Account>(this.urlEndPoint + '/' + id, {headers: this.httpHeaders }) 
+  }
 }
