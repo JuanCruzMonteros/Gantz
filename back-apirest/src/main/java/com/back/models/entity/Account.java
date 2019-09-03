@@ -16,6 +16,9 @@ import javax.persistence.GeneratedValue;
 @Table(name="accounts")
 public class Account {
 
+	private String usuario;
+	private String password;
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
@@ -99,5 +102,18 @@ public class Account {
 	public void setCreateAt(Date createAt) {
 		createAt = createAt;
 	}
+	public String getUsuario() {
+		return usuario;
+	}
+	public void setUsuario(String usuario) {
+		this.usuario = usuario;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
+	
 }

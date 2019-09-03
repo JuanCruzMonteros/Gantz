@@ -8,23 +8,31 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { HttpClientModule } from '@angular/common/http';
 import { NotfoundComponent } from './notfound/notfound.component';
+import { AddComponent } from './accounts/add/add.component';
+import { EditComponent } from './accounts/edit/edit.component';
 
+import { FormsModule } from '@angular/forms';
 const rutas: Routes = [
-  { path: 'account', component: AccountsComponent },
   { path: '',      component: AppComponent },
-  { path: '**',      component: NotfoundComponent }
+  //{ path: '**',      component: NotfoundComponent },
+  { path: 'account', component: AccountsComponent },
+  { path: 'account/add', component: AddComponent }
+
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
     AccountsComponent,
-    NotfoundComponent
+    NotfoundComponent,
+    AddComponent,
+    EditComponent
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot(rutas),
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.back.models.entity.Account;
+import com.back.models.entity.UserPass;
 import com.back.models.services.*;
 
 @CrossOrigin(origins= { "http://localhost:4200" } )
@@ -42,6 +43,19 @@ public class AccountRestController {
 	@ResponseStatus(HttpStatus.CREATED)
 	public Account create(@RequestBody Account account) {
 		return accountService.save(account);
+	}
+	
+	@PostMapping("accounts/verify")
+	@ResponseStatus(HttpStatus.CREATED)
+	public void verify(@RequestBody UserPass userPass) {
+		System.out.println(userPass.getUsuario());
+		System.out.println(userPass.getPass());
+		if (userPass.getUsuario().equals("merengue")) {
+			System.out.println("merengue ha sido creado");
+		}
+		//verifica cuenta y si da ok, la agrega en la db
+		
+		//return accountService.save(account);
 	}
 	
 	@PutMapping("accounts/{id}")

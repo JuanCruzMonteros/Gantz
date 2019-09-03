@@ -7,4 +7,7 @@ export class Account {
     post: number;
     observaciones: string;
     create_at: Date;
+
+    user: string="usuario @gmail.com";
+    password: string ="password@gmail.com";
 }
