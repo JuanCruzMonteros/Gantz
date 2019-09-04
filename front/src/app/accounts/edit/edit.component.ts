@@ -41,7 +41,11 @@ export class EditComponent implements OnInit {
     this.accountService.update(this.account).subscribe( account =>
       {
         this.router.navigate['accounts']
+<<<<<<< HEAD
         Swal.fire('Account actualizada', 'Cuenta ' + this.account.userAcc + ' actualizada con exito!', 'success')
+=======
+        Swal.fire('Account actualizada', 'Cuenta ' + this.account.user + ' actualizada con exito!', 'success')
+>>>>>>> 9994eba8e254b6bb0efe88d663d7c79e0d8257fb
       });
   }
 }
