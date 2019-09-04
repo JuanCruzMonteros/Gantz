@@ -24,18 +24,10 @@ export class AddComponent implements OnInit {
 
   public create(): void {
     this.accountService.createAccount(this.account).subscribe(
-<<<<<<< HEAD
       json => 
       {
         this.router.navigate['/account'];
         swal.fire('La cuenta: @' + json.account.userAcc, 'Cuenta creada con exito','success');
-=======
-      response => 
-      {
-        console.log(this.account)
-        this.router.navigate['/accounts']
-        swal.fire('Creacion Account' , 'Cuenta creada con exito','success');
->>>>>>> 9994eba8e254b6bb0efe88d663d7c79e0d8257fb
       }
     )
   }
@@ -43,15 +35,9 @@ export class AddComponent implements OnInit {
   public verifyAccount(): void {
     console.log(this.userPass);
     this.accountService.verifyAccount(this.userPass).subscribe(
-<<<<<<< HEAD
       json => {
         swal.fire('Verificacion: ' , json.mensaje ,'success');
         this.account = json.account;
-=======
-      response => {
-        console.log(this.userPass)//this.router.navigate['/accounts']
-        swal.fire('Validacion Account' , 'Cuenta validada con exito','success');
->>>>>>> 9994eba8e254b6bb0efe88d663d7c79e0d8257fb
       }
     )
     
