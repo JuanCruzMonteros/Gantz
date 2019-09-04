@@ -16,10 +16,16 @@ import javax.persistence.GeneratedValue;
 @Table(name="accounts")
 public class Account {
 
-	@Column(nullable=false,unique=true)
+	
+	
+	@Column(nullable=false)
 	private String usuario;
+	
 	@Column(nullable=false)
 	private String password;
+	
+	@Column(nullable=false)
+	private String userAcc;
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -27,8 +33,8 @@ public class Account {
 	
 	private String bio;
 	private String foto_bio;
-	private String followers;
-	private String following;
+	private int followers;
+	private int following;
 	private int post;
 
 	private String observaciones;
@@ -66,22 +72,21 @@ public class Account {
 		this.foto_bio = foto_bio;
 	}
 
-	public String getFollowers() {
+
+
+
+	public int getFollowers() {
 		return followers;
 	}
-
-	public void setFollowers(String followers) {
+	public void setFollowers(int followers) {
 		this.followers = followers;
 	}
-
-	public String getFollowing() {
+	public int getFollowing() {
 		return following;
 	}
-
-	public void setFollowing(String following) {
+	public void setFollowing(int following) {
 		this.following = following;
 	}
-
 	public int getPost() {
 		return post;
 	}
@@ -119,4 +124,16 @@ public class Account {
 	}
 
 	
+	public String getUserAcc() {
+		return userAcc;
+	}
+	public void setUserAcc(String userAcc) {
+		this.userAcc = userAcc;
+	}
+	@Override
+	public String toString() {
+		return "Account [User @" + userAcc + "usuario=" + usuario + ", password=" + password + ", id=" + id + ", bio=" + bio + ", foto_bio="
+				+ foto_bio + ", followers=" + followers + ", following=" + following + ", post=" + post
+				+ ", observaciones=" + observaciones + ", createAt=" + createAt + "]";
+	}
 }

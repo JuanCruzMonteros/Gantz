@@ -1,11 +1,18 @@
 package com.back.controllers;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.http.client.ClientProtocolException;
+import org.brunocvcunha.instagram4j.Instagram4j;
+import org.brunocvcunha.instagram4j.requests.InstagramSearchUsernameRequest;
+import org.brunocvcunha.instagram4j.requests.payload.InstagramSearchUsernameResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -28,12 +35,18 @@ import com.back.models.services.*;
 @RequestMapping("/api")
 public class AccountRestController {
 
+	
 	@Autowired
 	private IAccountService accountService;
 
 	@GetMapping("/accounts")
 	public List<Account> index() {
 		return accountService.findAll();
+	}
+	
+	@GetMapping("/accounts/page/{page}")
+	public Page<Account> index(@PathVariable Integer page) {
+		return accountService.findAll(PageRequest.of(page, 2));
 	}
 
 	@GetMapping("accounts/{id}")
@@ -56,48 +69,97 @@ public class AccountRestController {
 		return new ResponseEntity<Account>(account, HttpStatus.OK);
 	}
 
-	
-	// probar postman crear 2 veces el mismo account.  6 - 2
+	// probar postman crear 2 veces el mismo account. 6 - 2
 	@PostMapping("accounts")
 	public ResponseEntity<?> create(@RequestBody Account account) {
-		
+
 		Map<String, Object> response = new HashMap<>();
-		
+
 		Account accountNew = null;
 		try {
 			accountNew = accountService.save(account);
-		} catch(DataAccessException e) {
+		} catch (DataAccessException e) {
 			response.put("mensaje", "Error al realizar la consulta en la base de datos");
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		response.put("mensaje", "El mensaje ha sido creado con exito!");
 		response.put("account", accountNew);
-		
+
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 	}
 
 	@PostMapping("accounts/verify")
-	@ResponseStatus(HttpStatus.CREATED)
-	public void verify(@RequestBody UserPass userPass) {
-		System.out.println(userPass.getUsuario());
-		System.out.println(userPass.getPass());
-		if (userPass.getUsuario().equals("merengue")) {
-			System.out.println("merengue ha sido creado");
-		}
-		// verifica cuenta y si da ok, la agrega en la db
+	public ResponseEntity<?> verify(@RequestBody UserPass userPass) {
+		
+		Map<String, Object> response = new HashMap<>();
 
-		// return accountService.save(account);
+		Account accountNew = null;
+		accountNew = cargarDatosUsuario( userPass.getUsuario(),  userPass.getPass());
+		
+		if( accountNew == null ) {
+			response.put("mensaje", "Usuario o contraseña incorrectos");
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
+		}
+		
+		response.put("mensaje", "Cuenta verificada con éxito!");
+		response.put("account", accountNew);
+
+		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.ACCEPTED);
+	} 
+
+	public Account cargarDatosUsuario(String USER, String PASS) {
+		Instagram4j instagram = Instagram4j.builder().username(USER).password(PASS).build();
+
+		instagram.setup();
+
+		Account actual = null;
+
+		try {
+			instagram.login();
+			if (!instagram.login().getStatus().equals("ok")) {
+				System.out.println("no logeado. User o password incorrecto");
+				return null;
+			}
+			System.out.println("Usuario logeado: " + instagram.getUsername());
+
+			InstagramSearchUsernameResult userResult = instagram
+					.sendRequest(new InstagramSearchUsernameRequest(instagram.getUsername()));
+
+			actual = new Account();
+			actual.setUserAcc(userResult.getUser().getUsername());
+			
+			actual.setBio(userResult.getUser().getBiography());
+			actual.setFollowers(userResult.getUser().getFollower_count());
+			actual.setFollowing(userResult.getUser().getFollowing_count());
+			actual.setFoto_bio(userResult.getUser().getProfile_pic_url());
+
+			// testear si da correctamente numero de posts
+			actual.setPost((int) userResult.getUser().getMedia_count());
+			actual.setUsuario(USER);
+			actual.setPassword(PASS);
+
+			System.out.println(actual);
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+			return null;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
+
+		return actual;
 	}
 
 	@PutMapping("accounts/{id}")
-	public ResponseEntity<?>  update(@RequestBody Account account, @PathVariable Long id) {
+	public ResponseEntity<?> update(@RequestBody Account account, @PathVariable Long id) {
 		Account accountActual = accountService.findById(id);
 		Account accountUpdated = null;
 		Map<String, Object> response = new HashMap<>();
-		
-		if( accountActual == null ) {
-			response.put("mensaje", "Error: no se pudo editar la cuenta de ID: " + id + "No existe en la base de datos");
+
+		if (accountActual == null) {
+			response.put("mensaje",
+					"Error: no se pudo editar la cuenta de ID: " + id + "No existe en la base de datos");
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
 		}
 		try {
@@ -108,33 +170,33 @@ public class AccountRestController {
 			accountActual.setFollowing(account.getFollowing());
 			accountActual.setObservaciones(account.getObservaciones());
 			accountActual.setPost(account.getPost());
-			
+
 			accountUpdated = accountService.save(accountActual);
-			
-		} catch(DataAccessException e) {
+
+		} catch (DataAccessException e) {
 			response.put("mensaje", "Error al actualizar en la base de datos");
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		response.put("mensaje", "La cuenta ha sido actualizada con éxito!");
 		response.put("account", accountUpdated);
-		
+
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 	}
 
 	@DeleteMapping("accounts/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public ResponseEntity<?>   delete(@PathVariable Long id) {
+	public ResponseEntity<?> delete(@PathVariable Long id) {
 		Map<String, Object> response = new HashMap<>();
-		
+
 		try {
 			accountService.delete(id);
-		} catch(DataAccessException e) {
+		} catch (DataAccessException e) {
 			response.put("mensaje", "Error al eliminar el cliente en la base de datos");
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		
+
 		response.put("mensaje", "La cuenta ha sido eliminada con éxito!");
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
 	}

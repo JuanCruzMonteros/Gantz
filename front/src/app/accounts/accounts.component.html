@@ -14,29 +14,46 @@
     <thead>
         <tr>
             <th>id</th>
+            <th>Cuenta</th>
             <th>bio</th>
             <th>foto_bio</th>
             <th>following</th>
             <th>followers</th>
             <th>post</th>
             <th>observaciones</th>
-            <th>create_at</th>
         <th>
             editar
         </th>
         <th>eliminar</th>
         </tr>
     </thead>
+    <!--
+         <form #clienteForm="ngForm">
+      <div class="form-group row">
+        <label for="nombre" class="col-form-label col-sm-2">Nombre</label>
+        <div class="col-sm-6">
+          <input type="text" class="form-control" [(ngModel)]="cliente.nombre" name="nombre" #nombre="ngModel"> <!- - required minlength="4" -- >
+          <div class="alert alert-danger" *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)">
+            <div *ngIf="nombre.errors.required">
+              Nombre es requerido
+            </div>
+            <div *ngIf="nombre.errors.minlength">
+              Nombre debe tener al menos 4 caracteres
+            </div>
+          </div>
+        </div>
+      </div>
+    -->
     <tbody>
         <tr *ngFor="let acc of accounts">
         <td>{{ acc.id }}</td>
+        <td>@{{ acc.userAcc }}</td>
         <td>{{ acc.bio }}</td>
-        <td>{{ acc.foto_bio }}</td>
+        <img src="{{ acc.foto_bio }}" width="50" height="50">
         <td>{{ acc.following }}</td>
         <td>{{ acc.followers }}</td>
         <td>{{ acc.post }}</td>
         <td>{{ acc.observaciones }}</td>
-        <td>{{ acc.create_at }}</td>
         <td>
             <button type="button" name="editar" class="btn btn-primary btn-sm" [routerLink]="['/account/edit', acc.id]">editar</button>
         </td>

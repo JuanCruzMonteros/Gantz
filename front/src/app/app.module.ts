@@ -13,11 +13,11 @@ import { EditComponent } from './accounts/edit/edit.component';
 
 import { FormsModule } from '@angular/forms';
 const rutas: Routes = [
-  { path: '',      component: AppComponent },
   //{ path: '**',      component: NotfoundComponent },
   { path: 'account', component: AccountsComponent },
   { path: 'account/add', component: AddComponent },
-  { path: 'account/edit/:id', component: EditComponent }
+  { path: 'account/edit/:id', component: EditComponent },
+  { path: '', redirectTo: '/account', pathMatch: 'full' }
 
 ];
 

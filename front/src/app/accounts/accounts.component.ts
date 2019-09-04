@@ -24,16 +24,15 @@ export class AccountsComponent implements OnInit {
   }
 
   delete(account: Account): void {
-
     swal.fire({
       title: 'Está seguro?',
-      text: `¿Seguro que desea eliminar la cuenta ${account.user}?`,
+      text: `¿Seguro que desea eliminar la cuenta @${account.userAcc}?`,
       type: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Si, eliminar!',
-      cancelButtonText: 'No, cancelar!',
+      cancelButtonText: 'No, cancelar!',  
       confirmButtonClass: 'btn btn-success',
       cancelButtonClass: 'btn btn-danger',
       buttonsStyling: false,
@@ -47,7 +46,7 @@ export class AccountsComponent implements OnInit {
             this.accounts  = this.accounts.filter(user => user !== account)
             swal.fire(
               'Usuario Eliminado!',
-              `Usuario: ${account.user} eliminado con éxito.`,
+              `Usuario: @${account.userAcc} eliminado con éxito.`,
               'success'
             )
           }

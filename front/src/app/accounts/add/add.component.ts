@@ -24,11 +24,10 @@ export class AddComponent implements OnInit {
 
   public create(): void {
     this.accountService.createAccount(this.account).subscribe(
-      response => 
+      json => 
       {
-        console.log(this.account)
-        this.router.navigate['/accounts']
-        swal.fire('Creacion Account' , 'Cuenta creada con exito','success');
+        this.router.navigate['/account'];
+        swal.fire('La cuenta: @' + json.account.userAcc, 'Cuenta creada con exito','success');
       }
     )
   }
@@ -36,11 +35,12 @@ export class AddComponent implements OnInit {
   public verifyAccount(): void {
     console.log(this.userPass);
     this.accountService.verifyAccount(this.userPass).subscribe(
-      response => {
-        console.log(this.userPass)//this.router.navigate['/accounts']
-        swal.fire('Validacion Account' , 'Cuenta validada con exito','success');
+      json => {
+        swal.fire('Verificacion: ' , json.mensaje ,'success');
+        this.account = json.account;
       }
     )
+    
   }
 
 }
