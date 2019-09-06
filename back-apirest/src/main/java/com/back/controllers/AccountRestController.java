@@ -15,6 +15,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -49,6 +50,8 @@ public class AccountRestController {
 		return accountService.findAll(PageRequest.of(page, 2));
 	}
 
+	
+	@Secured({"ROLE_STARTER","ROLE_ADMIN"})
 	@GetMapping("accounts/{id}")
 	public ResponseEntity<?> show(@PathVariable Long id) {
 
@@ -69,6 +72,7 @@ public class AccountRestController {
 		return new ResponseEntity<Account>(account, HttpStatus.OK);
 	}
 
+	@Secured({"ROLE_ADMIN"})
 	// probar postman crear 2 veces el mismo account. 6 - 2
 	@PostMapping("accounts")
 	public ResponseEntity<?> create(@RequestBody Account account) {
@@ -89,6 +93,7 @@ public class AccountRestController {
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 	}
 
+	@Secured({"ROLE_ADMIN"})
 	@PostMapping("accounts/verify")
 	public ResponseEntity<?> verify(@RequestBody UserPass userPass) {
 		
@@ -108,7 +113,8 @@ public class AccountRestController {
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.ACCEPTED);
 	} 
 
-	public Account cargarDatosUsuario(String USER, String PASS) {
+	
+	private Account cargarDatosUsuario(String USER, String PASS) {
 		Instagram4j instagram = Instagram4j.builder().username(USER).password(PASS).build();
 
 		instagram.setup();
@@ -151,6 +157,8 @@ public class AccountRestController {
 		return actual;
 	}
 
+	
+	@Secured({"ROLE_ADMIN"})
 	@PutMapping("accounts/{id}")
 	public ResponseEntity<?> update(@RequestBody Account account, @PathVariable Long id) {
 		Account accountActual = accountService.findById(id);
@@ -184,6 +192,7 @@ public class AccountRestController {
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 	}
 
+	@Secured({"ROLE_ADMIN"})
 	@DeleteMapping("accounts/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public ResponseEntity<?> delete(@PathVariable Long id) {
