@@ -72,9 +72,6 @@ public class Account {
 		this.foto_bio = foto_bio;
 	}
 
-
-
-
 	public int getFollowers() {
 		return followers;
 	}
