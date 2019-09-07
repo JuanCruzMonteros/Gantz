@@ -25,6 +25,9 @@ INSERT INTO `roles` (nombre) VALUES ('ROLE_ADMIN');
 INSERT INTO `roles` (nombre) VALUES ('ROLE_REGULAR');
 INSERT INTO `roles` (nombre) VALUES ('ROLE_PROFESIONAL');
 
+INSERT INTO `roles` (nombre) VALUES ('ROLE_TRIAL');
+INSERT INTO `roles` (nombre) VALUES ('ROLE_SIMPLE');
+
 INSERT INTO `usuarios_roles` (usuario_id, role_id) VALUES (1, 1);
 INSERT INTO `usuarios_roles` (usuario_id, role_id) VALUES (2, 2);
 INSERT INTO `usuarios_roles` (usuario_id, role_id) VALUES (2, 1);

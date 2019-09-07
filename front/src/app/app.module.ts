@@ -12,8 +12,13 @@ import { AddComponent } from './accounts/add/add.component';
 import { EditComponent } from './accounts/edit/edit.component';
 
 import { FormsModule } from '@angular/forms';
+import { LoginComponent } from './usuarios/login.component';
+import { HeaderComponent } from './header/header.component';
+import { PaginatorComponent } from './paginator/paginator.component';
 const rutas: Routes = [
   //{ path: '**',      component: NotfoundComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'account/page/:page', component: AccountsComponent },
   { path: 'account', component: AccountsComponent },
   { path: 'account/add', component: AddComponent },
   { path: 'account/edit/:id', component: EditComponent },
@@ -27,7 +32,10 @@ const rutas: Routes = [
     AccountsComponent,
     NotfoundComponent,
     AddComponent,
-    EditComponent
+    EditComponent,
+    LoginComponent,
+    HeaderComponent,
+    PaginatorComponent
   ],
   imports: [
     BrowserModule,

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AccountService } from './account.service';
 import { Account } from '../accounts/models/account';
 import swal from 'sweetalert2';
+import { AuthService } from '../usuarios/auth.service';
+import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-accounts',
   templateUrl: './accounts.component.html'
@@ -9,18 +11,28 @@ import swal from 'sweetalert2';
 export class AccountsComponent implements OnInit {
 
   accounts: Account[];
+  paginador: any;
+  accountSeleccionado: Account;
 
-  constructor(private accountService: AccountService) { }
+  constructor(private accountService: AccountService,
+    private authService: AuthService,
+    private activatedRoute: ActivatedRoute) { }
 
 
   ngOnInit() {
-    this.accountService.getAccounts().subscribe(
-      accounts =>{
-        this.accounts = accounts
-        console.log(accounts);
-      } 
-    );
-    
+    this.activatedRoute.paramMap.subscribe(params => {
+      let page: number = +params.get('page');
+
+      if (!page) {
+        page = 0;
+      }
+
+      this.accountService.getAccounts(page)
+        .pipe().subscribe(response => {
+          this.accounts = response.content as Account[];
+          this.paginador = response;
+        });
+    });
   }
 
   delete(account: Account): void {

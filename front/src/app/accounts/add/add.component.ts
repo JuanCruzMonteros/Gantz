@@ -15,6 +15,9 @@ export class AddComponent implements OnInit {
   private account: Account = new Account();
   private userPass: Userpass = new Userpass();
 
+
+  errores: string[];
+
   private titulo:string = "crear Account"
   constructor(private accountService: AccountService,
               private router: Router) { }
@@ -23,13 +26,19 @@ export class AddComponent implements OnInit {
   }
 
   public create(): void {
-    this.accountService.createAccount(this.account).subscribe(
-      json => 
-      {
-        this.router.navigate['/account'];
-        swal.fire('La cuenta: @' + json.account.userAcc, 'Cuenta creada con exito','success');
-      }
-    )
+    console.log(this.account);
+    this.accountService.createAccount(this.account)
+      .subscribe(
+        cliente => {
+          this.router.navigate(['/account']);
+          swal.fire('Nueva Cuenta', `La cuenta ${this.account.userAcc} ha sido agregada con existo con éxito`, 'success');
+        },
+        err => {
+          this.errores = err.error.errors as string[];
+          console.error('Código del error desde el backend: ' + err.status);
+          console.error(err.error.errors);
+        }
+      );
   }
 
   public verifyAccount(): void {

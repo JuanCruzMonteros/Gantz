@@ -21,11 +21,8 @@
             <th>followers</th>
             <th>post</th>
             <th>observaciones</th>
-        <th>
-            editar
-        </th>
-        <th>eliminar</th>
-        </tr>
+            <th *ngIf="authService.hasRole('ROLE_ADMIN')">editar</th>
+            <th *ngIf="authService.hasRole('ROLE_ADMIN')">eliminar</th>
     </thead>
     <!--
          <form #clienteForm="ngForm">
@@ -54,15 +51,15 @@
         <td>{{ acc.followers }}</td>
         <td>{{ acc.post }}</td>
         <td>{{ acc.observaciones }}</td>
-        <td>
+        <td *ngIf="authService.hasRole('ROLE_ADMIN')">editar
             <button type="button" name="editar" class="btn btn-primary btn-sm" [routerLink]="['/account/edit', acc.id]">editar</button>
         </td>
-        <td>
+        <td *ngIf="authService.hasRole('ROLE_ADMIN')">
             <button type="button" name="eliminar"   class="btn btn-danger btn-sm" (click)='delete(acc)'>eliminar</button>
         </td>
         </tr>
     </tbody>
     </table>
-
+    <paginator-nav *ngIf="paginador" [paginador]="paginador"></paginator-nav>
 </div>
 </div>
