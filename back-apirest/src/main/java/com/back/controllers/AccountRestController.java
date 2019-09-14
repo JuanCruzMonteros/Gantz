@@ -36,6 +36,8 @@ import com.back.models.services.*;
 @RequestMapping("/api")
 public class AccountRestController {
 
+	@Autowired
+	private InstagramAccService instagramAccService;
 	
 	@Autowired
 	private IAccountService accountService;
@@ -47,7 +49,7 @@ public class AccountRestController {
 	
 	@GetMapping("/accounts/page/{page}")
 	public Page<Account> index(@PathVariable Integer page) {
-		return accountService.findAll(PageRequest.of(page, 2));
+		return accountService.findAll(PageRequest.of(page, 5));
 	}
 
 	
@@ -114,47 +116,8 @@ public class AccountRestController {
 	} 
 
 	
-	private Account cargarDatosUsuario(String USER, String PASS) {
-		Instagram4j instagram = Instagram4j.builder().username(USER).password(PASS).build();
-
-		instagram.setup();
-
-		Account actual = null;
-
-		try {
-			instagram.login();
-			if (!instagram.login().getStatus().equals("ok")) {
-				System.out.println("no logeado. User o password incorrecto");
-				return null;
-			}
-			System.out.println("Usuario logeado: " + instagram.getUsername());
-
-			InstagramSearchUsernameResult userResult = instagram
-					.sendRequest(new InstagramSearchUsernameRequest(instagram.getUsername()));
-
-			actual = new Account();
-			actual.setUserAcc(userResult.getUser().getUsername());
-			
-			actual.setBio(userResult.getUser().getBiography());
-			actual.setFollowers(userResult.getUser().getFollower_count());
-			actual.setFollowing(userResult.getUser().getFollowing_count());
-			actual.setFoto_bio(userResult.getUser().getProfile_pic_url());
-
-			// testear si da correctamente numero de posts
-			actual.setPost((int) userResult.getUser().getMedia_count());
-			actual.setUsuario(USER);
-			actual.setPassword(PASS);
-
-			System.out.println(actual);
-		} catch (ClientProtocolException e) {
-			e.printStackTrace();
-			return null;
-		} catch (IOException e) {
-			e.printStackTrace();
-			return null;
-		}
-
-		return actual;
+	private Account cargarDatosUsuario(String user, String pass) {
+		return instagramAccService.getUser(user, pass);
 	}
 
 	
