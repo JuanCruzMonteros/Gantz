@@ -9,6 +9,6 @@ export class Account {
     create_at: Date;
 
     userAcc: string="";
-    ususario: string="usuario @gmail.com";
+    usuario: string="usuario @gmail.com";
     password: string ="password@gmail.com";
 }

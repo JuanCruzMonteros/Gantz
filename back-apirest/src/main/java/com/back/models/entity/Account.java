@@ -43,6 +43,8 @@ public class Account {
 	@Column(name="create_at")
 	private Date createAt;
 
+	private String HashTagLikes;
+	
 	@PrePersist
 	public void prePersist() {
 		//  Aca deberia hacer llamado al servicio de inst //
@@ -133,4 +135,12 @@ public class Account {
 				+ foto_bio + ", followers=" + followers + ", following=" + following + ", post=" + post
 				+ ", observaciones=" + observaciones + ", createAt=" + createAt + "]";
 	}
+	public String getHashTagLikes() {
+		return HashTagLikes;
+	}
+	public void setHashTagLikes(String hashTagLikes) {
+		HashTagLikes = hashTagLikes;
+	}
+	
+	
 }

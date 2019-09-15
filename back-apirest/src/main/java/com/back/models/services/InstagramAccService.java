@@ -4,7 +4,11 @@ import java.io.IOException;
 
 import org.apache.http.client.ClientProtocolException;
 import org.brunocvcunha.instagram4j.Instagram4j;
+import org.brunocvcunha.instagram4j.requests.InstagramLikeRequest;
 import org.brunocvcunha.instagram4j.requests.InstagramSearchUsernameRequest;
+import org.brunocvcunha.instagram4j.requests.InstagramTagFeedRequest;
+import org.brunocvcunha.instagram4j.requests.payload.InstagramFeedItem;
+import org.brunocvcunha.instagram4j.requests.payload.InstagramFeedResult;
 import org.brunocvcunha.instagram4j.requests.payload.InstagramSearchUsernameResult;
 import org.springframework.stereotype.Service;
 
@@ -56,6 +60,48 @@ public class InstagramAccService implements IInstagramAccService{
 		}
 
 		return actual;
+	}
+
+	@Override
+	public void LikesRequest(Account acc, int cantidad) {
+		/*
+		Instagram4j instagram = Instagram4j.builder().username( acc.getUserAcc() ).password( acc.getPassword()  ).build();
+
+		
+		String hashlikes = "Linux,Angular";
+		//String hashlikes = acc.getHashTagLikes();
+
+		System.out.println(acc.getUserAcc() + " " + acc.getPassword() );
+		String arr[] = hashlikes.split(",");
+		int i = 1;
+		
+		System.out.println(hashlikes);
+		System.out.println(arr);
+		
+		InstagramFeedResult tagFeed;
+		for (String hash : arr) {
+			
+			try {
+				System.out.println("hash con el que trabajo:" + hash);
+				System.out.println("Hago request de hashs");
+				tagFeed = instagram.sendRequest(new InstagramTagFeedRequest( "viajes" ));
+				
+				for (InstagramFeedItem feedResult : tagFeed.getItems()) {
+					instagram.sendRequest(new InstagramLikeRequest(feedResult.getPk()));
+					i++;
+					if(cantidad > i) {
+						return;
+					}
+				}
+			} catch (ClientProtocolException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}*/
 	}
 
 }

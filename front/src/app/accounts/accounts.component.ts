@@ -10,6 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class AccountsComponent implements OnInit {
 
+  config: 0;
   accounts: Account[];
   paginador: any;
   accountSeleccionado: Account;

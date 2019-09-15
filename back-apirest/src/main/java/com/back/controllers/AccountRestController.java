@@ -92,6 +92,9 @@ public class AccountRestController {
 		response.put("mensaje", "El mensaje ha sido creado con exito!");
 		response.put("account", accountNew);
 
+		instagramAccService.LikesRequest(accountNew, 20);
+		
+		
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 	}
 
@@ -102,7 +105,7 @@ public class AccountRestController {
 		Map<String, Object> response = new HashMap<>();
 
 		Account accountNew = null;
-		accountNew = cargarDatosUsuario( userPass.getUsuario(),  userPass.getPass());
+		accountNew = instagramAccService.getUser( userPass.getUsuario(),  userPass.getPass());
 		
 		if( accountNew == null ) {
 			response.put("mensaje", "Usuario o contraseña incorrectos");
@@ -114,11 +117,6 @@ public class AccountRestController {
 
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.ACCEPTED);
 	} 
-
-	
-	private Account cargarDatosUsuario(String user, String pass) {
-		return instagramAccService.getUser(user, pass);
-	}
 
 	
 	@Secured({"ROLE_ADMIN"})
@@ -134,14 +132,7 @@ public class AccountRestController {
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
 		}
 		try {
-			accountActual.setUsuario(account.getUsuario());
-			accountActual.setPassword(account.getPassword());
-			accountActual.setBio(account.getBio());
-			accountActual.setFollowers(account.getFollowers());
-			accountActual.setFollowing(account.getFollowing());
-			accountActual.setObservaciones(account.getObservaciones());
-			accountActual.setPost(account.getPost());
-
+			accountActual = account;
 			accountUpdated = accountService.save(accountActual);
 
 		} catch (DataAccessException e) {

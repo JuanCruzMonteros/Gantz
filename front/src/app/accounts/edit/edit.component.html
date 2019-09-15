@@ -1,102 +1,39 @@
-<table class="table table-bordered table-striped">
-        <thead>
-            <tr>
-                <th>id</th>
-                <th>bio</th>
-                <th>foto_bio</th>
-                <th>following</th>
-                <th>followers</th>
-                <th>post</th>
-                <th>observaciones</th>
-                <th>create_at</th>
-            </tr>
-        </thead>
-        <tbody>
-            <td>{{ account.id }}</td>
-            <td>{{ account.bio }}</td>
-            <td>{{ account.foto_bio }}</td>
-            <td>{{ account.following }}</td>
-            <td>{{ account.followers }}</td>
-            <td>{{ account.post }}</td>
-            <td>{{ account.observaciones }}</td>
-            <td>{{ account.create_at }}</td>
-        </tbody>
-        </table>
+<div class="card bg-dark text-white">
+    <div class="card-header">{{ titulo }}</div>
+    <div class="card-body">
 
-<!--<ul class="alert alert-danger" *ngIf="errores?.length > 0">
-        <li *ngFor="let err of errores">
-            {{ err }}
-        </li>
-        </ul>
-        <div class="card bg-dark text-white">
-            <div class="card-header">{{ titulo }}</div>
-                <div class="card-body">
-        
-                <form #accountForm="ngForm">
-        
-                    <div class="form-group row">
-                        <label for="celularOCorreo" class="col-form-label col-sm-2">celularOCorreo</label>
-                        <div class="col-sm-6">
-                            <input type="text" class="form-control" [(ngModel)]="usuario.celularOCorreo" name="celularOCorreo"#COC="ngModel">
-                            
-                            <! --  required minlength="10" maxlength="50"  - ->
-                            <div class="alert alert-danger" *ngIf="COC.invalid && (COC.dirty || COC.touched)">
-                                <div *ngIf="COC.errors.required">
-                                    el mail/telefono es requerido
-                                </div>
-                                <div *ngIf="COC.errors.minlength">
-                                    El mail/telefono debe tener al menos 10 caracteres
-                                </div>
-                                <div *ngIf="COC.errors.maxlength">
-                                    El mail/telefono debe tener como mucho 50 caracteres
-                                </div>
-                            </div>
+        <form #AccountForm="ngForm">
+            <div class="form-group row">
+                <label for="userAcc" class="col-form-label col-sm-2">User Account</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" [(ngModel)]="account.usuario" name="userAcc"
+                        #usuario="ngModel">
+                    <div class="alert alert-danger" *ngIf="userAcc.invalid && (userAcc.dirty || userAcc.touched)">
+                        <div *ngIf="userAcc.errors.required">
+                            User Account es requerido
+                        </div>
+                        <div *ngIf="userAcc.errors.minlength">
+                            Cuenta de usuario debe tener al menos 4 caracteres
                         </div>
                     </div>
-        
-                    <div class="form-group row">
-                        <label for="nombreCompleto" class="col-form-label col-sm-2">nombreCompleto</label>
-                        <div class="col-sm-6">
-                            <input type="text" class="form-control"  [(ngModel)]="usuario.nombreCompleto" name="nombreCompleto" #nombreCompleto="ngModel"><!- -required- ->
-        
-                        <div class="alert alert-danger" *ngIf="nombreCompleto.invalid && (nombreCompleto.dirty || nombreCompleto.touched)">
-                            <div *ngIf="nombreCompleto.errors.required">
-                                El nombre es requerido
-                            </div>
-                        </div>
-                        </div>
-                    </div>
-        
-                    <div class="form-group row">
-                        <label for="nombreUsuario" class="col-form-label col-sm-2">nombreUsuario</label>
-                        <div class="col-sm-6">
-                            <input type="text" class="form-control"  [(ngModel)]="usuario.nombreUsuario" name="nombreUsuario" #NombreUsuario="ngModel"><!- -required- ->
-                            <div class="alert alert-danger" *ngIf="NombreUsuario.invalid && (NombreUsuario.dirty || NombreUsuario.touched)">
-                                <div *ngIf="NombreUsuario.errors.required">
-                                    El nombre de usuario es requerido
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-        
-                    <div class="form-group row">
-                        <label for="contrasena" class="col-form-label col-sm-2">contrasena</label>
-                        <div class="col-sm-6">
-                            <input type="text" class="form-control"  [(ngModel)]="usuario.contrasena" name="contrasena" #Password="ngModel"><! --required- ->
-                            <div class="alert alert-danger" *ngIf="Password.invalid && (Password.dirty || Password.touched)">
-                                    <div *ngIf="Password.errors.required">
-                                        El nombre de usuario es requerido
-                                    </div>
-                                </div>
-                        </div>
-                    </div>
-                        
-                    <div class="form-group row">
-                        <div class="col-sm-6">
-                            <button class="btn btn-primary" role="button" (click)='updateUsuario()' [disabled]="!accountForm.form.valid"> Actualizar </button>
-                        </div>
-                    </div>
-                </form>
+                </div>
             </div>
-        </div>
-    -->
+
+            <div class="form-group row">
+                <label for="password" class="col-form-label col-sm-2">Password</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" [(ngModel)]="account.password" name="account"
+                        #password="ngModel"> <!-- required -->
+                    <div class="alert alert-danger" *ngIf="account.invalid && (account.dirty || account.touched)">
+                        <div *ngIf="account.errors.required">
+                            password es requerido
+                        </div>
+                    </div>
+                </div>
+            </div>
+                <button class="btn btn-primary" role="button" (click)='update()'
+                    [disabled]="!clienteForm.form.valid">Editar</button>
+        </form>
+
+    </div>
+</div>
