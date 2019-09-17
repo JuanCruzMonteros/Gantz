@@ -41,4 +41,3 @@ _Menciona las herramientas que utilizaste para crear tu proyecto_
 ![alt text](/imgForReadme/front/2.png)
 ![alt text](/imgForReadme/front/3.png)
 ![alt text](/imgForReadme/front/4.png)
-![alt text](/imgForReadme/front/5.png)
