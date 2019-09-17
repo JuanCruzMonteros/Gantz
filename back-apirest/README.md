@@ -1,8 +1,5 @@
 # Gantz Backend
-
-# Título del Proyecto
-
-_Acá va un párrafo que describa lo que es el proyecto_
+_Api Rest implementada con Spring y Oauth2 para autenticidad ,integridad y no repudio_
 
 ## Comenzando 🚀
 
