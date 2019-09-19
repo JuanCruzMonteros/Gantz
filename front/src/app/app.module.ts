@@ -15,14 +15,25 @@ import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './usuarios/login.component';
 import { HeaderComponent } from './header/header.component';
 import { PaginatorComponent } from './paginator/paginator.component';
+
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { sideNavPath, navRoutes } from './nav-routing';
+import { NavComponent } from './core/components/nav/nav.component';
+import { NavModule } from './core/components/nav/nav.module';
+
 const rutas: Routes = [
-  //{ path: '**',      component: NotfoundComponent },
+  {
+    path: sideNavPath,
+    component: NavComponent,
+    children: navRoutes
+  },
+  // { path: '**',      component: NotfoundComponent },
   { path: 'login', component: LoginComponent },
   { path: 'account/page/:page', component: AccountsComponent },
   { path: 'account', component: AccountsComponent },
   { path: 'account/add', component: AddComponent },
   { path: 'account/edit/:id', component: EditComponent },
-  { path: '', redirectTo: '/account', pathMatch: 'full' }
+  { path: '', redirectTo: sideNavPath, pathMatch: 'full' }
 
 ];
 
@@ -35,13 +46,15 @@ const rutas: Routes = [
     EditComponent,
     LoginComponent,
     HeaderComponent,
-    PaginatorComponent
+    PaginatorComponent,
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot(rutas),
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule,
+    NavModule
   ],
   providers: [],
   bootstrap: [AppComponent]
