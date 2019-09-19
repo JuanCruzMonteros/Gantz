@@ -1,0 +1,87 @@
+<button [routerLink]="['/account/add']">Agregar Cuenta</button>
+
+<button (click)="NormalStateColumnsolumn()"> config o no config </button>
+
+<div class="card border-primary mb-3">
+  <div class="card-header">Cuentas</div>
+  <div class="card-body text-primary">
+    <h5 class="card-title">Listado de Cuentas</h5>
+    <div class="my-2 text-left">
+      <button class="btn btn-rounded btn-primary" type="button" [routerLink]="['/account/add']">
+        Agregar Cuenta
+      </button>
+    </div>
+    <div *ngIf="accounts?.length== 0" class="alert alert-info">
+      No hay registros de usuarios!
+    </div>
+
+
+    <div class="config" *ngIf="this.config">
+      <table class="table table-bordered table-striped" *ngIf="accounts?.length >0 ">
+        <thead>
+          <tr>
+            <th *ngFor="let element of tableNormalElements">{{element}}</th>
+
+            <div *ngIf="authService.hasRole('ROLE_ADMIN')">
+              <th *ngFor="let element of tableEditElements">{{element}}</th>
+            </div>
+          </tr>
+        </thead>
+
+        <tbody *ngFor="let acc of accounts">
+          <tr>
+            <td>{{ acc.id }}</td>
+            <td>@{{ acc.userAcc }}</td>
+            <td>{{ acc.bio }}</td>
+            <img src="{{ acc.foto_bio }}" width="50" height="50"
+              fallback='C:/Users/jjuan/Desktop/GatzMiercolesMañana/Gantz/front/src/assets/perfil.png' />
+            <td>{{ acc.following }}</td>
+            <td>{{ acc.followers }}</td>
+            <td>{{ acc.post }}</td>
+            <td>{{ acc.observaciones }}</td>
+
+            <div *ngIf="authService.hasRole('ROLE_ADMIN')">
+              <td>
+                <button type="button" name="editar" class="btn btn-primary btn-sm"
+                  [routerLink]="['/account/edit', acc.id]">editar</button>
+              </td>
+              <td>
+                <button type="button" name="eliminar" class="btn btn-danger btn-sm"
+                  (click)='delete(acc)'>eliminar</button>
+              </td>
+            </div>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- <paginator-nav *ngIf="paginador" [paginador]="paginador"></paginator-nav> -->
+
+
+
+    <div class="config" *ngIf="!this.config">
+        <table class="table table-bordered table-striped" *ngIf="accounts?.length >0 ">
+          <thead>
+            <tr>
+              <th *ngFor="let element of tableNormalElements">{{element}}</th>
+  
+              <div *ngIf="authService.hasRole('ROLE_ADMIN')">
+                <th *ngFor="let element of tableEditElements">{{element}}</th>
+              </div>
+            </tr>
+          </thead>
+  
+          <tbody *ngFor="let acc of accounts">
+            <tr>
+              <td>{{ acc.observaciones }}</td>
+              <td>@{{ acc.userAcc }}</td>
+              <td>{{ acc.following }}</td>
+              <td>{{ acc.followers }}</td>
+              <td>{{ acc.post }}</td>
+              
+
+            </tr>
+          </tbody>
+        </table>
+      </div>
+  </div>
+</div>

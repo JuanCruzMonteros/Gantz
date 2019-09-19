@@ -12,21 +12,21 @@ export const sideNavPath = 'nav';
 
 export const navRoutes: NavRoute[] = [
     {
-        data: { title: 'Home' },
-        icon: 'home',
-        path: 'home',
+        data: { title: 'Home' }, // titulo sidebar
+        icon: 'home', // icono
+        path: 'home', // ruta de navegacion
         loadChildren: () =>
             import('./pages/home-page/home-page.module').then(
                 m => m.HomePageModule,
             ),
     },
     {
-        data: { title: 'casita' },
-        icon: 'casita',
-        path: 'casita',
+        data: { title: 'Social Profiles' },
+        icon: 'sp',
+        path: 'sp',
         loadChildren: () =>
-            import('./pages/home-page/home-page.module').then(
-                m => m.HomePageModule,
+            import('./pages/social-profiles/social-profiles.module').then(
+                m => m.SocialProfilesModule,
             ),
     },
     {
