@@ -1,4 +1,3 @@
-<button [routerLink]="['/account/add']">Agregar Cuenta</button>
 
 <button (click)="NormalStateColumnsolumn()"> config o no config </button>
 
@@ -7,7 +6,7 @@
   <div class="card-body text-primary">
     <h5 class="card-title">Listado de Cuentas</h5>
     <div class="my-2 text-left">
-      <button class="btn btn-rounded btn-primary" type="button" [routerLink]="['/account/add']">
+      <button type="button" class="btn btn-primary" type="button" [routerLink]="['./add']">
         Agregar Cuenta
       </button>
     </div>
@@ -16,7 +15,7 @@
     </div>
 
 
-    <div class="config" *ngIf="this.config">
+    <div>
       <table class="table table-bordered table-striped" *ngIf="accounts?.length >0 ">
         <thead>
           <tr>
@@ -43,7 +42,7 @@
             <div *ngIf="authService.hasRole('ROLE_ADMIN')">
               <td>
                 <button type="button" name="editar" class="btn btn-primary btn-sm"
-                  [routerLink]="['/account/edit', acc.id]">editar</button>
+                  [routerLink]="['./edit', acc.id]">editar</button>
               </td>
               <td>
                 <button type="button" name="eliminar" class="btn btn-danger btn-sm"
@@ -55,33 +54,5 @@
       </table>
     </div>
     <!-- <paginator-nav *ngIf="paginador" [paginador]="paginador"></paginator-nav> -->
-
-
-
-    <div class="config" *ngIf="!this.config">
-        <table class="table table-bordered table-striped" *ngIf="accounts?.length >0 ">
-          <thead>
-            <tr>
-              <th *ngFor="let element of tableNormalElements">{{element}}</th>
-  
-              <div *ngIf="authService.hasRole('ROLE_ADMIN')">
-                <th *ngFor="let element of tableEditElements">{{element}}</th>
-              </div>
-            </tr>
-          </thead>
-  
-          <tbody *ngFor="let acc of accounts">
-            <tr>
-              <td>{{ acc.observaciones }}</td>
-              <td>@{{ acc.userAcc }}</td>
-              <td>{{ acc.following }}</td>
-              <td>{{ acc.followers }}</td>
-              <td>{{ acc.post }}</td>
-              
-
-            </tr>
-          </tbody>
-        </table>
-      </div>
   </div>
 </div>

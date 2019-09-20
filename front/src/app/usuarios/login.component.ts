@@ -9,6 +9,8 @@ import { Router } from '@angular/router';
   templateUrl: './login.component.html'
 })
 export class LoginComponent implements OnInit {
+  pathRedirect = '/nav/home';
+
   titulo: string = 'Por favor Sign In!';
   usuario: Usuario;
 
@@ -19,7 +21,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     if (this.authService.isAuthenticated()) {
       swal.fire('Login', `Hola ${this.authService.usuario.username} ya estás autenticado!`, 'info');
-      this.router.navigate(['/account']);
+      this.router.navigate([this.pathRedirect]);
     }
   }
 
@@ -36,7 +38,7 @@ export class LoginComponent implements OnInit {
       this.authService.guardarUsuario(response.access_token);
       this.authService.guardarToken(response.access_token);
       let usuario = this.authService.usuario;
-      this.router.navigate(['/account']);
+      this.router.navigate([this.pathRedirect]);
       swal.fire('Login', `Hola ${usuario.username}, has iniciado sesión con éxito!`, 'success');
     }, err => {
       if (err.status == 400) {

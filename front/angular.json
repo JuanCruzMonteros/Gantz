@@ -24,10 +24,11 @@
               "src/assets"
             ],
             "styles": [
-              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "node_modules/bootstrap/dist/css/bootstrap.css",
               "src/styles.css",
               "src/theme.scss",
-              "src/app/core/styles/nav-styles.scss"
+              "src/app/core/styles/nav-styles.scss",
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css"
             ],
             "scripts": []
           },
