@@ -11,6 +11,7 @@ export interface NavRoute extends Route {
 export const sideNavPath = 'nav';
 
 export const navRoutes: NavRoute[] = [
+    /*
     {
         data: { title: 'Dashboard' }, // titulo sidebar
         icon: 'dashboard', // icono
@@ -19,7 +20,7 @@ export const navRoutes: NavRoute[] = [
             import('./pages/dashboard/dashboard.module').then(
                 m => m.DashboardModule,
             ),
-    },
+    },*/
     {
         data: { title: 'Add Acount' }, // titulo sidebar
         icon: 'person_add', // icono
