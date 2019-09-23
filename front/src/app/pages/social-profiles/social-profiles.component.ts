@@ -13,7 +13,8 @@ import { SocialProfilesService } from './services/social-profiles.service';
 export class SocialProfilesComponent implements OnInit {
 
   tableNormalElements = ['id', 'Cuenta', 'bio', 'foto_bio', 'following', 'followers', 'post', 'observaciones'];
-  tableEditElements = ['edit', 'eliminar', 'like', 'comment', 'follow'];
+  tableEditElements = ['editar', 'eliminar'];
+  // tableEditElements = ['edit', 'eliminar', 'like', 'comment', 'follow'];
 
   config = false;
 
@@ -74,9 +75,4 @@ export class SocialProfilesComponent implements OnInit {
       }
     });
   }
-
-  NormalStateColumnsolumn() {
-    this.config = !this.config;
-  }
-
 }

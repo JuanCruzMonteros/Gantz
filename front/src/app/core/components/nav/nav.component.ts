@@ -5,6 +5,7 @@ import {
 } from '../../services/navigation/navigation.service';
 import { NavRoute } from '../../../nav-routing';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from 'src/app/usuarios/auth.service';
 
 @Component({
     selector: 'app-nav',
@@ -17,6 +18,7 @@ export class NavComponent implements OnInit {
     constructor(
         private navigationService: NavigationService,
         private router: Router,
+        private authService: AuthService
     ) {}
 
     ngOnInit() {}
@@ -32,11 +34,16 @@ export class NavComponent implements OnInit {
     public getActivePage(): Page {
         return this.navigationService.getActivePage();
     }
-
+/*
     public logout() {
         // this.authService.logout();
         this.router.navigate(['login'], { replaceUrl: true });
     }
+*/
+    public logout(): void {
+        this.authService.logout();
+        this.router.navigate(['/login']);
+      }
 
     public getPreviousUrl(): string[] {
         return this.navigationService.getPreviousUrl();

@@ -1,0 +1,40 @@
+<div class="card bg-dark text-white center-block">
+    <div class="card-header">{{titulo}}</div>
+
+    <div class="card-body">
+            
+            <label for="" class="col-form-label col-sm-10">Agregue su cuenta de instagram para verificar y luego le permitira Agregarla:</label>
+        <form>
+
+            <div class="form-group row">
+                <label for="" class="col-form-label col-sm-2">Usuario:</label>
+                <div class="col-sm-6">
+                    <!--  -->
+                    <input type="text" class="form-control" [(ngModel)]="userPass.usuario" name="user">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="" class="col-form-label col-sm-2">Password:</label>
+                <div class="col-sm-6">
+                    <!--  -->
+                    <input type="text" class="form-control" [(ngModel)]="userPass.pass" name="password">
+
+                </div>
+            </div>
+
+            <div class="form-group row" *ngIf="!verificado">
+                <div class="col-sm-6">
+                    <button class="btn btn-success" role="button" (click)='verifyAccount()'>Verificar</button>
+                </div>
+            </div>
+            <div class="form-group row" *ngIf="verificado">
+                <div class="col-sm-6">
+                    <button class="btn btn-primary" role="button" (click)='create()'>Agregar</button>
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+</div>

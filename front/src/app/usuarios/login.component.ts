@@ -6,12 +6,12 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
-  templateUrl: './login.component.html'
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  pathRedirect = '/nav/home';
-
-  titulo: string = 'Por favor Sign In!';
+  pathRedirect = '/nav/sp';
+  msjError = '';
   usuario: Usuario;
 
   constructor(private authService: AuthService, private router: Router) {
@@ -29,6 +29,7 @@ export class LoginComponent implements OnInit {
     console.log(this.usuario);
     if (this.usuario.username == null || this.usuario.password == null) {
       swal.fire('Error Login', 'Username o password vacías!', 'error');
+      this.msjError = 'Username o password vacías!';
       return;
     }
 
@@ -41,10 +42,11 @@ export class LoginComponent implements OnInit {
       this.router.navigate([this.pathRedirect]);
       swal.fire('Login', `Hola ${usuario.username}, has iniciado sesión con éxito!`, 'success');
     }, err => {
-      if (err.status == 400) {
+      if (err.status === 400) {
         swal.fire('Error Login', 'Usuario o clave incorrectas!', 'error');
+        this.msjError = 'Usuario o clave incorrectas!';
       }
     }
     );
-    }
   }
+}

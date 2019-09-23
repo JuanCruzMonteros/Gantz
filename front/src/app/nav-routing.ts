@@ -12,17 +12,26 @@ export const sideNavPath = 'nav';
 
 export const navRoutes: NavRoute[] = [
     {
-        data: { title: 'Home' }, // titulo sidebar
-        icon: 'home', // icono
-        path: 'home', // ruta de navegacion
+        data: { title: 'Dashboard' }, // titulo sidebar
+        icon: 'dashboard', // icono
+        path: 'dashboard', // ruta de navegacion
         loadChildren: () =>
-            import('./pages/home-page/home-page.module').then(
-                m => m.HomePageModule,
+            import('./pages/dashboard/dashboard.module').then(
+                m => m.DashboardModule,
+            ),
+    },
+    {
+        data: { title: 'Add Acount' }, // titulo sidebar
+        icon: 'person_add', // icono
+        path: 'addAcount', // ruta de navegacion
+        loadChildren: () =>
+            import('./pages/add-account/add-account.module').then(
+                m => m.AddAccountModule,
             ),
     },
     {
         data: { title: 'Social Profiles' },
-        icon: 'sp',
+        icon: 'account_box',
         path: 'sp',
         loadChildren: () =>
             import('./pages/social-profiles/social-profiles.module').then(
@@ -31,7 +40,7 @@ export const navRoutes: NavRoute[] = [
     },
     {
         path: '',
-        redirectTo: 'home',
+        redirectTo: 'sp',
         pathMatch: 'full',
     },
 ];

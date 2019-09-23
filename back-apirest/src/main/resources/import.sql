@@ -1,7 +1,7 @@
  
-insert into accounts (bio,foto_bio,followers,following,post,observaciones ,create_at,usuario,password,user_acc) values ('bio','foto',1,1,10,'alguna obs', Now(),'urca','urca','urca');
+insert into accounts (bio,foto_bio,followers,following,post,observaciones ,create_at,usuario,password,user_acc) values ('bio12','https://instagram.faep4-1.fna.fbcdn.net/vp/8eb405b448ac904ac96f2289e01013c8/5E3C975A/t51.2885-15/e35/p1080x1080/61402386_150647056062714_5533398976598187924_n.jpg?_nc_ht=instagram.faep4-1.fna.fbcdn.net&_nc_cat=106',1,1,10,'alguna obs', Now(),'urca','urca','urca');
 
-insert into accounts (bio,foto_bio,followers,following,post,observaciones ,create_at,usuario,password,user_acc) values ('bio2','foto2',2,2,12,'alguna obs', Now(),'juanca','juanca', 'merengue');
+insert into accounts (bio,foto_bio,followers,following,post,observaciones ,create_at,usuario,password,user_acc) values ('bio22','https://instagram.faep4-1.fna.fbcdn.net/vp/cfd32754dcf7ff1c5f74fe47d45f7be6/5E1AFF71/t51.2885-15/e35/s1080x1080/65582917_143877516684862_6175931112012616169_n.jpg?_nc_ht=instagram.faep4-1.fna.fbcdn.net&_nc_cat=110',2,2,12,'alguna obs', Now(),'juanca','juanca', 'merengue');
 
 
 /* claves spring security */

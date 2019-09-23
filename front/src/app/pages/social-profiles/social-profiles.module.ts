@@ -9,7 +9,7 @@ import { EditComponent } from './components/edit/edit.component';
 
 
 import { FormsModule } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+
 @NgModule({
   declarations: [
     SocialProfilesComponent,

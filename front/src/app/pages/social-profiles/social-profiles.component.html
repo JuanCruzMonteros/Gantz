@@ -1,29 +1,24 @@
-
-<button (click)="NormalStateColumnsolumn()"> config o no config </button>
-
 <div class="card border-primary mb-3">
   <div class="card-header">Cuentas</div>
   <div class="card-body text-primary">
     <h5 class="card-title">Listado de Cuentas</h5>
+    <!--
     <div class="my-2 text-left">
       <button type="button" class="btn btn-primary" type="button" [routerLink]="['./add']">
         Agregar Cuenta
       </button>
     </div>
+    -->
     <div *ngIf="accounts?.length== 0" class="alert alert-info">
       No hay registros de usuarios!
     </div>
-
-
+    
     <div>
       <table class="table table-bordered table-striped" *ngIf="accounts?.length >0 ">
         <thead>
-          <tr>
+          <tr *ngIf="authService.hasRole('ROLE_ADMIN')">
             <th *ngFor="let element of tableNormalElements">{{element}}</th>
-
-            <div *ngIf="authService.hasRole('ROLE_ADMIN')">
-              <th *ngFor="let element of tableEditElements">{{element}}</th>
-            </div>
+            <th *ngFor="let element of tableEditElements">{{element}}</th>
           </tr>
         </thead>
 
@@ -39,16 +34,14 @@
             <td>{{ acc.post }}</td>
             <td>{{ acc.observaciones }}</td>
 
-            <div *ngIf="authService.hasRole('ROLE_ADMIN')">
-              <td>
-                <button type="button" name="editar" class="btn btn-primary btn-sm"
-                  [routerLink]="['./edit', acc.id]">editar</button>
-              </td>
-              <td>
-                <button type="button" name="eliminar" class="btn btn-danger btn-sm"
-                  (click)='delete(acc)'>eliminar</button>
-              </td>
-            </div>
+            <td>
+              <button type="button" name="editar" class="btn btn-primary btn-sm"
+                [routerLink]="['./edit', acc.id]">editar</button>
+            </td>
+            <td>
+              <button type="button" name="eliminar" class="btn btn-danger btn-sm"
+                (click)='delete(acc)'>eliminar</button>
+            </td>
           </tr>
         </tbody>
       </table>

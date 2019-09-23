@@ -1,4 +1,6 @@
 @import '../../../../variables.scss';
+
+
 svg {
     max-height: 100%;
     max-width: 100%;
@@ -9,6 +11,6 @@ svg {
         fill: darken($primaryColor, 20);
     }
     .p2 {
-        fill: white;
+        fill: #edd9d8;;
     }
 }
