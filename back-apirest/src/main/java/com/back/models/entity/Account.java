@@ -15,8 +15,6 @@ import javax.persistence.GeneratedValue;
 @Entity
 @Table(name="accounts")
 public class Account {
-
-	
 	
 	@Column(nullable=false)
 	private String usuario;
